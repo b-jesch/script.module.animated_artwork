@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<addon id="script.module.animated_artwork" name="Animated Artwork Module" version="1.0.0+matrix" provider-name="PvD">
+<addon id="script.module.animated_artwork" name="Animated Artwork Module" version="1.0.1+matrix" provider-name="PvD">
     <requires>
 	    <import addon="xbmc.python" version="3.0.0"/>
     </requires>
@@ -7,11 +7,11 @@
       	<menu id="kodi.core.main">
             <item library="main.py" args="add">
                 <label>30010</label>
-                <visible>Skin.HasSetting(Skin_EnableAnimatedPosters) + [String.IsEqual(ListItem.dbtype,movie) | String.IsEqual(ListItem.dbtype,tvshow)] + String.IsEmpty(ListItem.Art(animatedposter))</visible>
+                <visible>Skin.HasSetting(Skin_EnableAnimatedPosters) + [String.IsEqual(ListItem.dbtype,movie) | String.IsEqual(ListItem.dbtype,set) | String.IsEqual(ListItem.dbtype,tvshow)] + String.IsEmpty(ListItem.Art(animatedposter))</visible>
             </item>
             <item library="main.py" args="remove">
                 <label>30011</label>
-                <visible>Skin.HasSetting(Skin_EnableAnimatedPosters) + [String.IsEqual(ListItem.dbtype,movie) | String.IsEqual(ListItem.dbtype,tvshow)] + !String.IsEmpty(ListItem.Art(animatedposter))</visible>
+                <visible>Skin.HasSetting(Skin_EnableAnimatedPosters) + [String.IsEqual(ListItem.dbtype,movie) | String.IsEqual(ListItem.dbtype,set) | String.IsEqual(ListItem.dbtype,tvshow)] + !String.IsEmpty(ListItem.Art(animatedposter))</visible>
             </item>
     	</menu>
  	</extension>

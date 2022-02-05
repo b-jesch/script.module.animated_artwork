@@ -13,9 +13,6 @@ addon = xbmcaddon.Addon(id='script.module.animated_artwork')
 addon_name = addon.getAddonInfo('name')
 loc = addon.getLocalizedString
 
-if xbmc.getInfoLabel('ListItem.dbid'): dbid = int(xbmc.getInfoLabel('ListItem.dbid'))
-title = xbmc.getInfoLabel('ListItem.title')
-
 
 def jsonrpc(query):
     querystring = {"jsonrpc": "2.0", "id": 1}
@@ -40,6 +37,12 @@ def walkthrough(title, filelist, simlist=None):
 
 def main():
     dbtype = xbmc.getInfoLabel('ListItem.dbtype')
+    if xbmc.getInfoLabel('ListItem.dbid'): dbid = int(xbmc.getInfoLabel('ListItem.dbid'))
+    title = xbmc.getInfoLabel('ListItem.title')
+
+    if dbtype == 'set':
+        title = xbmc.getInfoLabel('ListItem.title').replace(xbmc.getLocalizedString(36910), '').strip()
+
     if sys.argv[1] == 'add':
 
         if not xbmc.getCondVisibility('Skin.String(ap_source)'):
@@ -105,6 +108,9 @@ def main():
             if dbtype == 'movie':
                 rpc = {'method': 'VideoLibrary.SetMovieDetails',
                        'params': {'movieid': dbid, 'art': {'animatedposter': ap_dir + liz[dialog].getLabel()}}}
+            elif dbtype == 'set':
+                rpc = {'method': 'VideoLibrary.SetMovieSetDetails',
+                       'params': {'setid': dbid, 'art': {'animatedposter': ap_dir + liz[dialog].getLabel()}}}
             elif dbtype == 'tvshow':
                 rpc = {'method': 'VideoLibrary.SetTVShowDetails',
                        'params': {'tvshowid': dbid, 'art': {'animatedposter': ap_dir + liz[dialog].getLabel()}}}
@@ -123,6 +129,9 @@ def main():
         if dbtype == 'movie':
             rpc = {'method': 'VideoLibrary.SetMovieDetails',
                    'params': {'movieid': dbid, 'art': {'animatedposter': None}}}
+        elif dbtype == 'set':
+            rpc = {'method': 'VideoLibrary.SetMovieSetDetails',
+                   'params': {'setid': dbid, 'art': {'animatedposter': None}}}
         elif dbtype == 'tvshow':
             rpc = {'method': 'VideoLibrary.SetTVShowDetails',
                    'params': {'tvshowid': dbid, 'art': {'animatedposter': None}}}
